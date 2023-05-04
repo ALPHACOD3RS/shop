@@ -7,7 +7,7 @@ class Product(Base):
     __tablename__ = "product"
 
     id = Column(Integer, primary_key=True, index=True)
-    pname = Column(String, unique=True)
+    pname = Column(String,)
     price = Column(String)
     quantity = Column(String)
 
@@ -17,7 +17,18 @@ class User(Base):
     __tablename__ = "user"
 
     id= Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True)
+    name = Column(String,)
     fname = Column(String)
-    pno = Column(Integer)
+    pno = Column(String, unique=True)
     addr = Column(String)
+
+
+#likedislkikecomment >>>>>>>>>>>> ldc
+class Ldc(Base):
+    __tablename__ = "ldc"
+
+    id= Column(Integer, primary_key=True, index=True)
+    pid = Column(Integer )
+    like= Column(Integer)
+    dislike = Column(Integer)
+    comment = Column(String)

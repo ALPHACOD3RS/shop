@@ -10,5 +10,11 @@ class Users(BaseModel):
     id: int
     name: str
     fname: str
-    pno: int
+    pno: str
     addr:str
+
+class ldc(BaseModel):
+    pid: int
+    like: int
+    dislike: int
+    comment: str

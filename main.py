@@ -26,8 +26,11 @@ def get_db():
 
 @app.post('/users')
 def users(request: schema.Users, db: Session = Depends(get_db)):
-    new_user = models.User()
-    return {"something":"sk"}
+    new_user = models.User(name = request.name, fname = request.fname, pno = request.pno, addr = request.addr)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
 @app.get('/products')
 def home(db: Session = Depends(get_db)):
@@ -46,3 +49,8 @@ def post_item(request: schema.Products, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_product)
     return new_product
+
+@app.post('like-dislike-comment')
+def likeDislikeComment(id, request: schema.ldc, db: Session = Depends(get_db)):
+    pId = db.query(models.Product).filter(models.Product.id==id).first()
+    return pId
