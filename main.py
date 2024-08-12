@@ -13,7 +13,13 @@ models.Base.metadata.create_all(bind=engine)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-
+def verify_authorization_header(authorization: str = Header(None)):
+    if authorization != "siu":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorized",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 def get_db():
     db = SessionLocal()
@@ -22,7 +28,10 @@ def get_db():
     finally:
         db.close()
 
-
+@app.post('/project-x')
+def secure_endpoint(authorization: str = Depends(verify_authorization_header)):
+    # If authorization header is correct
+    return {"message": "Cristiano Ronaldo siuuuuuuuuuu"}
 
 @app.post('/users')
 def users(request: schema.Users, db: Session = Depends(get_db)):
