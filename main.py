@@ -28,7 +28,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post('/project-x')
+@app.get('/project-x')
 def secure_endpoint(authorization: str = Depends(verify_authorization_header)):
     # If authorization header is correct
     return {"message": "Cristiano Ronaldo siuuuuuuuuuu"}
